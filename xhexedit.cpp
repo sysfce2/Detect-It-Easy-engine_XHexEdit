@@ -52,7 +52,7 @@ void XHexEdit::_adjustView()
 {
     adjustView();
 
-    if (getDevice()) {
+    if (getBinaryView()->getInData().pDevice) {
         reload(true);
     }
 }
@@ -64,7 +64,7 @@ void XHexEdit::setData(QIODevice *pDevice, qint64 nStartOffset, qint64 nTotalSiz
     options.nStartOffset = nStartOffset;
     options.nTotalSize = nTotalSize;
 
-    XDeviceTableView::setData(pDevice, options);
+    XDeviceTableView::setData(XFormats::createINDATA(options.fileType, pDevice, options.bIsImage, options.nModuleAddress), options);
     m_nStartViewPos = getBinaryView()->deviceOffsetToViewPos(nStartOffset);
 
     //    resetCursorData();
@@ -171,7 +171,7 @@ XAbstractTableView::OS XHexEdit::cursorPositionToOS(const XAbstractTableView::CU
 
 void XHexEdit::updateData()
 {
-    if (getDevice()) {
+    if (getBinaryView()->getInData().pDevice) {
         // Update cursor position
         XVPOS nBlockViewPos = getViewPosStart();
         //        qint64 nCursorOffset = nBlockOffset + getCursorDelta();
