@@ -354,7 +354,7 @@ void XHexEdit::keyPressEvent(QKeyEvent *pEvent)
             state.nSelectionViewPos = 0;
         }
 
-        if ((state.nSelectionViewPos >= getBinaryView()->getViewSize()) || (pEvent->matches(QKeySequence::MoveToEndOfDocument))) {
+        if ((state.nSelectionViewPos >= (XVPOS)getBinaryView()->getViewSize()) || (pEvent->matches(QKeySequence::MoveToEndOfDocument))) {
             state.varCursorExtraInfo = BYTEPOS_LOW;
             state.nSelectionViewPos = getBinaryView()->getViewSize() - 1;
         }
